@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 
 function Register() {
     let navigate = useNavigate();
-    
+
     return (
         <div className="container">
             <div className="screen">
@@ -30,7 +30,7 @@ function Register() {
                             <i className="login__icon fas fa-image"></i>
                             <input type="file" className="login__input" placeholder="Logo" accept="image/*" />
                         </div>
-                        <button className="button login__submit" onClick={()=> {
+                        <button className="button login__submit" onClick={() => {
                             navigate("/home")
                         }}>
                             <span className="button__text">Register Now</span>
