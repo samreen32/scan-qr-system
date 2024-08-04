@@ -31,14 +31,14 @@ function CheckPerItemReport() {
             <div className="invoice-button">
                 <Button
                     variant="contained"
-                    style={{ background: "#5D54A4", color: "white" }}
+                    style={{ background: "#5D54A4", color: "white", fontSize: "12px" }}
                     onClick={handleBack}
                 >
                     Back
                 </Button>
                 <Button
                     variant="contained"
-                    style={{ background: "green", color: "white", marginLeft: '20px' }}
+                    style={{ background: "green", color: "white", marginLeft: '20px', fontSize: "12px" }}
                     onClick={handlePrint}
                 >
                     Print

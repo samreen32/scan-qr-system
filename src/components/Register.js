@@ -6,10 +6,13 @@ function Register() {
 
     return (
         <div className="container">
-            <div className="screen">
+            <div className="screen my-5">
                 <div className="screen__content">
                     <form className="login">
-                        <h4 className='text-center'>Scan and Generate</h4>
+                        <h4 className='text-center'
+                        >
+                            Scan and Generate
+                        </h4>
                         <div className="login__field">
                             <i className="login__icon fas fa-user"></i>
                             <input type="text" className="login__input" placeholder="Name" />

@@ -10,7 +10,7 @@ function Home() {
                         <div className="container">
                             <div className="hero-inner">
                                 <div className="hero-copy">
-                                    <h1 className="hero-title mt-0">Scan QR/Bar Codes and Generate Reports</h1>
+                                    <h1 className="hero-title mt-0">Scan QR/Bar Codes and <br/>Generate Reports</h1>
                                     <p className="hero-paragraph">
                                         Our application makes it easy to scan QR and bar codes and instantly generate detailed reports about your items, helping you keep track of inventory and much more.
                                     </p>

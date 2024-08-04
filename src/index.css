@@ -25,13 +25,8 @@ body {
 
 .same-size {
   min-width: 180px;
-  /* Ensure minimum width */
-  height: 50px;
-  /* Ensure consistent height */
   padding: 10px 20px;
-  /* Padding for better aesthetics */
   font-size: 16px;
-  /* Consistent font size */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -89,20 +84,23 @@ body {
   border-radius: 60px;
 }
 
+.hero-title {
+  font-size: 32px;
+}
+
 .login {
   width: 320px;
   padding: 30px;
-  padding-top: 56px;
 }
 
 .login__field {
-  padding: 20px 0px;
+  padding: 10px 0px;
   position: relative;
 }
 
 .login__icon {
   position: absolute;
-  top: 30px;
+  top: 20px;
   left: 10px;
   color: #7875B5;
 }
@@ -116,6 +114,7 @@ body {
   font-weight: 700;
   width: 100%;
   transition: .2s;
+  font-size: 12px;
 }
 
 .login__input:active,
@@ -129,7 +128,7 @@ body {
   background: #fff;
   font-size: 14px;
   margin-top: 30px;
-  padding: 16px 20px;
+  padding: 10px 20px;
   border-radius: 26px;
   border: 1px solid #D4D3E8;
   text-transform: uppercase;
@@ -520,8 +519,8 @@ body {
     background-color: #4C489D;
     color: white;
     text-decoration: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 8px;
+    font-size: 12px;
     border-radius: 16px;
   }
 
@@ -793,8 +792,9 @@ main {
   }
 }
 
-.css-1ex1afd-MuiTableCell-root {
-  padding: 6px !important;
+.css-1ex1afd-MuiTableCell-root,
+.css-q34dxg {
+  padding: 4px !important;
 }
 
 .invoice-button {

@@ -65,13 +65,13 @@ function PerItemReport() {
                 <div className='px-3 mt-3'>
                     <Button
                         variant="contained"
-                        style={{ background: "#5D54A4", color: "white" }}
+                        style={{ background: "#5D54A4", color: "white", fontSize: "12px" }}
                         onClick={handleBack}
                     >
                         Back
                     </Button>
                 </div>
-                <Typography variant="h4" component="div" gutterBottom sx={{ padding: "0 0 2px 0", textAlign: 'center' }}>
+                <Typography variant="h5" component="div" gutterBottom sx={{ padding: "0 0 2px 0", textAlign: 'center' }}>
                     Per Item Report
                 </Typography>
                 <Table stickyHeader aria-label="sticky table">
@@ -101,6 +101,7 @@ function PerItemReport() {
                                         color="primary"
                                         onClick={() => handleView(item)}
                                         sx={{ marginRight: 1, textTransform: "capitalize" }}
+                                        style={{ padding: "0px", fontSize: "12px" }}
                                     >
                                         View
                                     </Button>
@@ -109,6 +110,7 @@ function PerItemReport() {
                                         color="secondary"
                                         onClick={() => handleDelete(item.id)}
                                         sx={{ textTransform: "capitalize" }}
+                                        style={{ padding: "0px", fontSize: "12px" }}
                                     >
                                         Delete
                                     </Button>

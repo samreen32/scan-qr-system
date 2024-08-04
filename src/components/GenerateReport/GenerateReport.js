@@ -63,14 +63,14 @@ function GenerateReport() {
             <div className="invoice-button" style={{ margin: '20px 0 -20px 0' }}>
                 <Button
                     variant="contained"
-                    style={{ background: "#5D54A4", color: "white", marginRight: '20px' }}
+                    style={{ background: "#5D54A4", color: "white", marginRight: '20px', fontSize: "12px" }}
                     onClick={handleBack}
                 >
                     Back
                 </Button>
                 <Button
                     variant="contained"
-                    style={{ background: "green", color: "white", marginRight: '20px' }}
+                    style={{ background: "green", color: "white", marginRight: '20px', fontSize: "12px" }}
                     onClick={handlePrint}
                 >
                     Print
@@ -81,15 +81,15 @@ function GenerateReport() {
                     <div className="invoice-header">
                         <div className="invoice-logo">
                             <img src={invoiceData.logo} alt="Company Logo" />
-                            <p>{invoiceData.companyName}</p>
-                            <p>{invoiceData.address}</p>
+                            <p>{invoiceData.companyName}<br />
+                                {invoiceData.address}</p>
                         </div>
                         <div className="invoice-details">
                             <p><strong>Invoice Number:</strong> {invoiceData.invoiceNumber}</p>
                             <p><strong>Date: {" "}</strong> <TextField type="date" defaultValue={invoiceData.date} variant="standard" InputProps={{ disableUnderline: true }} /></p>
                         </div>
                     </div>
-                    <table className="invoice-table">
+                    <table className="invoice-table" style={{ marginTop: "-20px" }}>
                         <thead>
                             <tr>
                                 <th>Item #</th>
@@ -157,6 +157,7 @@ function GenerateReport() {
                                                         color="secondary"
                                                         onClick={() => handleRemoveItem(index)}
                                                         sx={{ textTransform: "capitalize" }}
+                                                        style={{ padding: "4px", fontSize: "12px" }}
                                                     >
                                                         Remove
                                                     </Button>
