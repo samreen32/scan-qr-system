@@ -21,15 +21,27 @@ function SelectTemplate() {
         });
     };
 
+    const handleBack = () => {
+        navigate("/home")
+    };
+
     return (
         <div className="container-fluid">
-            <h4 className='text-center my-4 pt-4' style={{ color: "white" }}>
-                Select an Invoice Template
-            </h4>
-            <div className='template-container my-2'>
+            <div className="d-flex align-items-center justify-content-center pt-4">
+                <button
+                    onClick={handleBack}
+                    className="btn btn-link"
+                    style={{ color: "white", textDecoration: "none", fontSize: "20px", marginRight: "10px" }}>
+                    <i className="fas fa-arrow-left"></i>
+                </button>
+                <h4 className='text-center' style={{ color: "white", margin: 0 }}>
+                    Select an Invoice Template
+                </h4>
+            </div>
+            <div className='template-container mb-5'>
                 <div className="template h-100 my-2">
                     <div className="template-preview px-2">
-                        <h5 className='my-2 pb-4 pt-2'>Template 1</h5>
+                        <h5 className='my-2'>Template 1</h5>
                         <Template1
                             items={items}
                             invoiceData={invoiceData}
@@ -38,14 +50,16 @@ function SelectTemplate() {
                             handleChange={handleChange}
                         />
                     </div>
-                    <button className="button login__submit" onClick={() => handleSelect('template1')}>
+                    <button className="button login__submit"
+                        style={{ marginTop: "5px" }}
+                        onClick={() => handleSelect('template1')}>
                         <span className="button__text">Select</span>
                         <i className="button__icon fas fa-chevron-right"></i>
                     </button>
                 </div>
                 <div className="template h-100 my-2">
                     <div className="template-preview px-2">
-                        <h5 className='my-2 pb-4 pt-2'>Template 2</h5>
+                        <h5 className='my-2'>Template 2</h5>
                         <Template2
                             items={items}
                             invoiceData={invoiceData}
@@ -54,14 +68,16 @@ function SelectTemplate() {
                             handleChange={handleChange}
                         />
                     </div>
-                    <button className="button login__submit" onClick={() => handleSelect('template2')}>
+                    <button className="button login__submit"
+                        style={{ marginTop: "5px" }}
+                        onClick={() => handleSelect('template2')}>
                         <span className="button__text">Select</span>
                         <i className="button__icon fas fa-chevron-right"></i>
                     </button>
                 </div>
                 <div className="template h-100 my-2">
                     <div className="template-preview px-2">
-                        <h5 className='my-2 pb-4 pt-2'>Template 3</h5>
+                        <h5 className='my-2'>Template 3</h5>
                         <Template3
                             items={items}
                             invoiceData={invoiceData}
@@ -70,7 +86,9 @@ function SelectTemplate() {
                             handleChange={handleChange}
                         />
                     </div>
-                    <button className="button login__submit" onClick={() => handleSelect('template3')}>
+                    <button className="button login__submit"
+                        style={{ marginTop: "5px" }}
+                        onClick={() => handleSelect('template3')}>
                         <span className="button__text">Select</span>
                         <i className="button__icon fas fa-chevron-right"></i>
                     </button>

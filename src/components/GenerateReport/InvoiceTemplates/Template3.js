@@ -44,8 +44,8 @@ function Template3({ items, handleChange, handleKeyPress, handleRemoveItem, invo
                     <tbody style={{ height: "250px", overflowY: "auto", }}>
                         {items?.map((item, index) => (
                             <tr key={item.itemNumber} style={{ borderBottom: '1px solid #ddd' }}>
-                                <td style={{ padding: '10px', fontSize: '14px' }}>{item.itemNumber}</td>
-                                <td style={{ padding: '10px', fontSize: '14px' }}>
+                                <td style={{ fontSize: '14px' }}>{item.itemNumber}</td>
+                                <td style={{ fontSize: '14px' }}>
                                     <TextField
                                         variant="standard"
                                         size="small"
@@ -55,7 +55,7 @@ function Template3({ items, handleChange, handleKeyPress, handleRemoveItem, invo
                                         onKeyPress={handleKeyPress}
                                     />
                                 </td>
-                                <td style={{ padding: '10px', fontSize: '14px' }}>
+                                <td style={{ fontSize: '14px' }}>
                                     <TextField
                                         variant="standard"
                                         size="small"
@@ -65,7 +65,7 @@ function Template3({ items, handleChange, handleKeyPress, handleRemoveItem, invo
                                         onKeyPress={handleKeyPress}
                                     />
                                 </td>
-                                <td style={{ padding: '10px', fontSize: '14px' }}>
+                                <td style={{ fontSize: '14px' }}>
                                     <TextField
                                         variant="standard"
                                         size="small"
@@ -76,7 +76,7 @@ function Template3({ items, handleChange, handleKeyPress, handleRemoveItem, invo
                                         onKeyPress={handleKeyPress}
                                     />
                                 </td>
-                                <td style={{ padding: '10px', fontSize: '14px' }}>
+                                <td style={{ fontSize: '14px' }}>
                                     <TextField
                                         variant="standard"
                                         size="small"
@@ -87,8 +87,8 @@ function Template3({ items, handleChange, handleKeyPress, handleRemoveItem, invo
                                         onKeyPress={handleKeyPress}
                                     />
                                 </td>
-                                <td style={{ padding: '10px', fontSize: '14px' }}>${item.totalPrice.toFixed(2)}</td>
-                                <td style={{ padding: '10px', fontSize: '14px' }}>
+                                <td style={{ fontSize: '14px' }}>${item.totalPrice.toFixed(2)}</td>
+                                <td style={{ fontSize: '14px' }}>
                                     <Button
                                         variant="contained"
                                         color="secondary"

@@ -4,7 +4,8 @@ import React from 'react';
 function Template1({ items, handleChange, handleKeyPress, handleRemoveItem, invoiceData }) {
     return (
         <>
-            <div className="invoice-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="invoice-header" style={{ 
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div className="invoice-logo" style={{ flex: 1 }}>
                     <img src={invoiceData?.logo} alt="Company Logo" />
                     <p className="company-info px-2 mt-3">
@@ -27,7 +28,7 @@ function Template1({ items, handleChange, handleKeyPress, handleRemoveItem, invo
             <div
                 className="invoice-items"
                 style={{
-                    marginTop: "20px", height: "250px", overflowY: "auto"
+                    marginTop: "0px", height: "250px", overflowY: "auto"
                 }}
             >
                 {items?.map((item, index) => (

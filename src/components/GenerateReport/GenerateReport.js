@@ -52,11 +52,7 @@ function GenerateReport() {
     };
 
     const handlePrintBarcode = () => {
-        generatePDF(targetRef, { filename: "invoice.pdf" });
-    };
-
-    const handlePrint = () => {
-        window.print();
+        generatePDF(targetRef, { filename: "barcode.pdf" });
     };
 
     const handleBack = () => {
@@ -117,7 +113,7 @@ function GenerateReport() {
 
     return (
         <>
-            <div className="invoice-button pb-3" style={{ margin: '30px 0 0 0' }}>
+            <div className="invoice-button" style={{ margin: '30px 0 0 0' }}>
                 <Button
                     variant="contained"
                     style={{ background: "#5D54A4", color: "white", marginRight: '20px', fontSize: "12px" }}
