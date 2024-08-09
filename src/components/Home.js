@@ -10,7 +10,7 @@ function Home() {
                         <div className="container">
                             <div className="hero-inner">
                                 <div className="hero-copy">
-                                    <h1 className="hero-title mt-0">Scan QR/Bar Codes and <br/>Generate Reports</h1>
+                                    <h1 className="hero-title mt-0">Scan QR/Bar Codes and <br />Generate Reports</h1>
                                     <p className="hero-paragraph">
                                         Our application makes it easy to scan QR and bar codes and instantly generate detailed reports about your items, helping you keep track of inventory and much more.
                                     </p>
@@ -26,10 +26,9 @@ function Home() {
                                             >
                                                 Start and Generate
                                             </button>
-                                            <div className="dropdown-menu" aria-labelledby="dropdownStartGenerate">
+                                            <div className="dropdown-menu mt-2" aria-labelledby="dropdownStartGenerate">
+                                                <Link className="dropdown-item" to="/SelectTemplate">Enter Details</Link>
                                                 <Link className="dropdown-item" to="/ScanBarCode">Scan Bar Code</Link>
-                                                <Link className="dropdown-item" to="/ScanQRCode">Scan QR Code</Link>
-                                                <Link className="dropdown-item" to="/GenerateReport">Enter Details</Link>
                                             </div>
                                         </div>
                                         <div className="dropdown">
@@ -43,7 +42,7 @@ function Home() {
                                             >
                                                 More Features
                                             </button>
-                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <div className="dropdown-menu mt-2" aria-labelledby="dropdownMenuButton">
                                                 <Link className="dropdown-item" to="/SalesReport">Sales Report</Link>
                                                 <Link className="dropdown-item" to="/PerItemReport">Per Item Report</Link>
                                                 <Link className="dropdown-item" to="/ClientsReport">Client Record</Link>

@@ -1,66 +1,123 @@
-import React, { useState } from 'react';
-import { Button, TextField } from '@mui/material';
-import { useNavigate } from 'react-router';
+import React, { useState, useRef } from 'react';
+import { Button, Modal, Box } from '@mui/material';
+import { useNavigate, useLocation } from 'react-router';
+import JsBarcode from 'jsbarcode';
+import Template3 from './InvoiceTemplates/Template3';
+import Template2 from './InvoiceTemplates/Template2';
+import Template1 from './InvoiceTemplates/Template1';
+import { UserLogin } from '../../context/AuthContext';
+import generatePDF from 'react-to-pdf';
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 620,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 function GenerateReport() {
+    const targetRef = useRef();
     let navigate = useNavigate();
+    const location = useLocation();
+    const {
+        items,
+        handleKeyPress,
+        handleRemoveItem,
+        handleChange,
+        invoiceData
+    } = UserLogin();
+    const { template } = location.state || { template: 'template1' };
+    const [barcodeData, setBarcodeData] = useState('');
+    const [open, setOpen] = useState(false);
+    const barcodeRef = useRef(null);
 
-    const invoiceData = {
-        logo: 'https://via.placeholder.com/100',
-        companyName: 'Your Company Name',
-        address: '123 Business Rd, Business City, BC 12345',
-        invoiceNumber: 'INV-1001',
-        date: '2024-08-04',
+    const generateBarcode = () => {
+        const barcodeText = `${invoiceData.invoiceNumber} - ${invoiceData.date}`;
+        setBarcodeData(barcodeText);
+        setTimeout(() => {
+            if (barcodeRef.current) {
+                JsBarcode(barcodeRef.current, barcodeText, {
+                    format: "CODE128",
+                    displayValue: true,
+                    fontSize: 16,
+                });
+            }
+        }, 100);
+        handleOpen();
     };
 
-    const [items, setItems] = useState([
-        { itemNumber: 1, name: 'Laptop', description: '15 inch, 256GB SSD', quantity: 2, pricePerItem: 1200, totalPrice: 2400 },
-        { itemNumber: 2, name: 'Smartphone', description: '64GB, Black', quantity: 5, pricePerItem: 800, totalPrice: 4000 },
-        { itemNumber: 3, name: 'Tablet', description: '10 inch, 128GB', quantity: 3, pricePerItem: 500, totalPrice: 1500 },
-    ]);
-
-    const handleChange = (index, field, value) => {
-        const newItems = [...items];
-        newItems[index][field] = value;
-
-        if (field === 'quantity' || field === 'pricePerItem') {
-            newItems[index].totalPrice = newItems[index].quantity * newItems[index].pricePerItem;
-        }
-
-        setItems(newItems);
-    };
-
-    const handleAddItem = () => {
-        setItems([
-            ...items,
-            { itemNumber: items.length + 1, name: '', description: '', quantity: 0, pricePerItem: 0, totalPrice: 0 },
-        ]);
-    };
-
-    const handleRemoveItem = (index) => {
-        const newItems = items.filter((_, i) => i !== index);
-        setItems(newItems);
+    const handlePrintBarcode = () => {
+        generatePDF(targetRef, { filename: "invoice.pdf" });
     };
 
     const handlePrint = () => {
         window.print();
     };
 
-    // Function to handle adding new rows when pressing Enter
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            handleAddItem();
+    const handleBack = () => {
+        navigate("/SelectTemplate");
+    };
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const renderTemplate = () => {
+        switch (template) {
+            case 'template1':
+                return renderTemplate1();
+            case 'template2':
+                return renderTemplate2();
+            case 'template3':
+                return renderTemplate3();
+            default:
+                return renderTemplate1();
         }
     };
 
-    const handleBack = () => {
-        navigate("/home")
-    }
+    const renderTemplate1 = () => (
+        <>
+            <Template1
+                items={items}
+                invoiceData={invoiceData}
+                handleKeyPress={handleKeyPress}
+                handleRemoveItem={handleRemoveItem}
+                handleChange={handleChange}
+            />
+        </>
+    );
+
+    const renderTemplate2 = () => (
+        <>
+            <Template2
+                items={items}
+                invoiceData={invoiceData}
+                handleKeyPress={handleKeyPress}
+                handleRemoveItem={handleRemoveItem}
+                handleChange={handleChange}
+            />
+        </>
+    );
+
+    const renderTemplate3 = () => (
+        <>
+            <Template3
+                items={items}
+                invoiceData={invoiceData}
+                handleKeyPress={handleKeyPress}
+                handleRemoveItem={handleRemoveItem}
+                handleChange={handleChange}
+            />
+        </>
+    );
 
     return (
         <>
-            <div className="invoice-button" style={{ margin: '20px 0 -20px 0' }}>
+            <div className="invoice-button pb-3" style={{ margin: '30px 0 0 0' }}>
                 <Button
                     variant="contained"
                     style={{ background: "#5D54A4", color: "white", marginRight: '20px', fontSize: "12px" }}
@@ -70,110 +127,41 @@ function GenerateReport() {
                 </Button>
                 <Button
                     variant="contained"
-                    style={{ background: "green", color: "white", marginRight: '20px', fontSize: "12px" }}
-                    onClick={handlePrint}
+                    style={{ background: "purple", color: "white", marginRight: '20px', fontSize: "12px" }}
+                    onClick={generateBarcode}
                 >
-                    Print
+                    Generate
                 </Button>
             </div>
             <div className="container">
                 <div className="invoice-container">
-                    <div className="invoice-header">
-                        <div className="invoice-logo">
-                            <img src={invoiceData.logo} alt="Company Logo" />
-                            <p>{invoiceData.companyName}<br />
-                                {invoiceData.address}</p>
-                        </div>
-                        <div className="invoice-details">
-                            <p><strong>Invoice Number:</strong> {invoiceData.invoiceNumber}</p>
-                            <p><strong>Date: {" "}</strong> <TextField type="date" defaultValue={invoiceData.date} variant="standard" InputProps={{ disableUnderline: true }} /></p>
-                        </div>
-                    </div>
-                    <table className="invoice-table" style={{ marginTop: "-20px" }}>
-                        <thead>
-                            <tr>
-                                <th>Item #</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Quantity</th>
-                                <th>Price Per Item</th>
-                                <th>Total Price</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colSpan="7">
-                                    <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
-                                        {items.map((item, index) => (
-                                            <tr key={item.itemNumber}>
-                                                <td>{item.itemNumber}</td>
-                                                <td>
-                                                    <TextField
-                                                        variant="standard"
-                                                        size="small"
-                                                        value={item.name}
-                                                        InputProps={{ disableUnderline: true }}
-                                                        onChange={(e) => handleChange(index, 'name', e.target.value)}
-                                                        onKeyPress={handleKeyPress}
-                                                    />
-                                                </td>
-                                                <td>
-                                                    <TextField
-                                                        variant="standard"
-                                                        size="small"
-                                                        value={item.description}
-                                                        InputProps={{ disableUnderline: true }}
-                                                        onChange={(e) => handleChange(index, 'description', e.target.value)}
-                                                        onKeyPress={handleKeyPress}
-                                                    />
-                                                </td>
-                                                <td>
-                                                    <TextField
-                                                        variant="standard"
-                                                        size="small"
-                                                        type="number"
-                                                        value={item.quantity}
-                                                        InputProps={{ disableUnderline: true }}
-                                                        onChange={(e) => handleChange(index, 'quantity', parseInt(e.target.value, 10))}
-                                                        onKeyPress={handleKeyPress}
-                                                    />
-                                                </td>
-                                                <td>
-                                                    <TextField
-                                                        variant="standard"
-                                                        size="small"
-                                                        type="number"
-                                                        value={item.pricePerItem}
-                                                        InputProps={{ disableUnderline: true }}
-                                                        onChange={(e) => handleChange(index, 'pricePerItem', parseFloat(e.target.value))}
-                                                        onKeyPress={handleKeyPress}
-                                                    />
-                                                </td>
-                                                <td>${item.totalPrice.toFixed(2)}</td>
-                                                <td>
-                                                    <Button
-                                                        variant="contained"
-                                                        color="secondary"
-                                                        onClick={() => handleRemoveItem(index)}
-                                                        sx={{ textTransform: "capitalize" }}
-                                                        style={{ padding: "4px", fontSize: "12px" }}
-                                                    >
-                                                        Remove
-                                                    </Button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    {renderTemplate()}
                     <div className="invoice-footer">
                         <p>Thank you for your business!</p>
                     </div>
                 </div>
             </div>
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-title"
+                aria-describedby="modal-description"
+            >
+                <Box sx={style}>
+                    <div ref={targetRef} style={{ textAlign: "center" }}>
+                        <h4 id="modal-title">Barcode of Invoice</h4>
+                        <svg ref={barcodeRef}></svg>
+                    </div>
+                    <Button
+                        onClick={handlePrintBarcode}
+                        variant="contained"
+                        className='barcode-btn'
+                    >
+                        Print Barcode
+                    </Button>
+                </Box>
+            </Modal>
         </>
     );
 }
