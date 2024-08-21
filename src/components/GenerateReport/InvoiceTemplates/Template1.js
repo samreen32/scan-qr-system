@@ -4,8 +4,14 @@ import React from 'react';
 function Template1({ items, handleChange, handleKeyPress, handleRemoveItem, invoiceData }) {
     return (
         <>
-            <div className="invoice-header" style={{ 
-                display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div
+                className="invoice-header"
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                }}
+            >
                 <div className="invoice-logo" style={{ flex: 1 }}>
                     <img src={invoiceData?.logo} alt="Company Logo" />
                     <p className="company-info px-2 mt-3">
@@ -28,21 +34,27 @@ function Template1({ items, handleChange, handleKeyPress, handleRemoveItem, invo
             <div
                 className="invoice-items"
                 style={{
-                    marginTop: "0px", height: "250px", overflowY: "auto"
+                    marginTop: "0px",
+                    overflowY: "auto"
                 }}
             >
                 {items?.map((item, index) => (
-                    <div key={item.itemNumber} style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        padding: '10px',
-                        marginBottom: '10px',
-                        backgroundColor: '#f9f9f9',
-                        borderRadius: '5px',
-                        border: '1px solid #ddd'
-                    }}>
-                        <Typography variant="body1" style={{ flex: 1 }}><strong>Item #{item.itemNumber}</strong></Typography>
+                    <div
+                        key={item.itemNumber}
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            padding: '10px',
+                            marginBottom: '10px',
+                            backgroundColor: '#f9f9f9',
+                            borderRadius: '5px',
+                            border: '1px solid #ddd'
+                        }}
+                    >
+                        <Typography variant="body1" style={{ flex: 1 }}>
+                            <strong>Item #{item.itemNumber}</strong>
+                        </Typography>
                         <TextField
                             variant="standard"
                             size="small"

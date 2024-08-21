@@ -41,7 +41,7 @@ function Template3({ items, handleChange, handleKeyPress, handleRemoveItem, invo
                             <th style={{ padding: '10px', textAlign: 'left', fontSize: '14px' }}>Actions</th>
                         </tr>
                     </thead>
-                    <tbody style={{ height: "250px", overflowY: "auto", }}>
+                    <tbody style={{ overflowY: "auto", }}>
                         {items?.map((item, index) => (
                             <tr key={item.itemNumber} style={{ borderBottom: '1px solid #ddd' }}>
                                 <td style={{ fontSize: '14px' }}>{item.itemNumber}</td>

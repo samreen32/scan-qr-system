@@ -9,6 +9,7 @@ import PerItemReport from "./components/ReportsTables/PerItemReport";
 import CheckPerItemReport from "./components/SpecificReports/CheckPerItemReport";
 import GenerateReport from "./components/GenerateReport/GenerateReport";
 import SelectTemplate from "./components/GenerateReport/SelectTemplate";
+import ScanBarCode from "./components/ScanBarCode/ScanBarCode";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/CheckPerItemReport" element={<CheckPerItemReport />} />
           <Route exact path="/GenerateReport" element={<GenerateReport />} />
           <Route exact path="/SelectTemplate" element={<SelectTemplate />} />
+          <Route exact path="/ScanBarCode" element={<ScanBarCode />} />
         </Routes>
       </Router>
     </AuthProvider>
@@ -30,4 +32,3 @@ function App() {
 }
 
 export default App;
-
