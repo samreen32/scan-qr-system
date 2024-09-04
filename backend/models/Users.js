@@ -7,6 +7,7 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
+    unique: true,
   },
   password: {
     type: String,
@@ -15,6 +16,9 @@ const userSchema = new Schema({
     type: String,
   },
   address: {
+    type: String,
+  },
+  company_logo: {
     type: String,
   },
   date: {

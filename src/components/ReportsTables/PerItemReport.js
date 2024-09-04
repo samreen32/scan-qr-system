@@ -11,7 +11,7 @@ import {
     TablePagination,
     Button,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom'; // Correct import for react-router-dom
+import { useNavigate } from 'react-router-dom'; 
 
 function PerItemReport() {
     let navigate = useNavigate();
@@ -42,13 +42,11 @@ function PerItemReport() {
         setPage(0);
     };
 
-    // Handle deleting an item
     const handleDelete = (id) => {
         const updatedItems = items.filter((item) => item.id !== id);
         setItems(updatedItems);
     };
 
-    // Handle viewing an item
     const handleView = (item) => {
        navigate("/CheckPerItemReport")
     };

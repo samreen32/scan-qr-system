@@ -1,7 +1,40 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserLogin } from '../context/AuthContext';
+import { USER_AUTH } from '../Auth_Api';
 
 function Home() {
+    const { setUserDetails } = UserLogin();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/');
+            return;
+        }
+        fetch(`${USER_AUTH}/getUserInfo`, {
+            method: 'GET',
+            headers: {
+                'token': token,
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.msg === 'Token is not valid' || data.msg === 'No token, authorization denied') {
+                    localStorage.removeItem('token');
+                    navigate('/');
+                } else {
+                    localStorage.setItem("userData", data);
+                    setUserDetails(data);
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching user info:', error);
+                navigate('/');
+            });
+    }, []);
+
     return (
         <>
             <div className="body-wrap">

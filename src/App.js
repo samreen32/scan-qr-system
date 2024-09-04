@@ -10,20 +10,22 @@ import CheckPerItemReport from "./components/SpecificReports/CheckPerItemReport"
 import GenerateReport from "./components/GenerateReport/GenerateReport";
 import SelectTemplate from "./components/GenerateReport/SelectTemplate";
 import ScanBarCode from "./components/ScanBarCode/ScanBarCode";
+import Login from "./components/Login";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <Routes>
-          <Route exact path="/" element={<Register />} />
+          <Route exact path="/" element={<Login />} />
+          <Route exact path="/register" element={<Register />} />
           <Route exact path="/home" element={<Home />} />
+          <Route exact path="/GenerateReport" element={<GenerateReport />} />
+          <Route exact path="/SelectTemplate" element={<SelectTemplate />} />
+          <Route exact path="/CheckPerItemReport" element={<CheckPerItemReport />} />
           <Route exact path="/ClientsReport" element={<ClientsReport />} />
           <Route exact path="/SalesReport" element={<SalesReport />} />
           <Route exact path="/PerItemReport" element={<PerItemReport />} />
-          <Route exact path="/CheckPerItemReport" element={<CheckPerItemReport />} />
-          <Route exact path="/GenerateReport" element={<GenerateReport />} />
-          <Route exact path="/SelectTemplate" element={<SelectTemplate />} />
           <Route exact path="/ScanBarCode" element={<ScanBarCode />} />
         </Routes>
       </Router>

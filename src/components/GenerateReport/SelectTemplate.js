@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Template1 from './InvoiceTemplates/Template1';
 import Template2 from './InvoiceTemplates/Template2';
 import Template3 from './InvoiceTemplates/Template3';
 import { UserLogin } from '../../context/AuthContext';
+import { USER_AUTH } from '../../Auth_Api';
 
 function SelectTemplate() {
     let navigate = useNavigate();
@@ -12,7 +13,8 @@ function SelectTemplate() {
         handleKeyPress,
         handleRemoveItem,
         handleChange,
-        invoiceData
+        userDetails,
+        setUserDetails
     } = UserLogin();
 
     const handleSelect = (template) => {
@@ -24,6 +26,34 @@ function SelectTemplate() {
     const handleBack = () => {
         navigate("/home")
     };
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/');
+            return;
+        }
+        fetch(`${USER_AUTH}/getUserInfo`, {
+            method: 'GET',
+            headers: {
+                'token': token,
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.msg === 'Token is not valid' || data.msg === 'No token, authorization denied') {
+                    localStorage.removeItem('token');
+                    navigate('/');
+                } else {
+                    localStorage.setItem("userData", data);
+                    setUserDetails(data);
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching user info:', error);
+                navigate('/');
+            });
+    }, []);
 
     return (
         <div className="container-fluid">
@@ -40,11 +70,11 @@ function SelectTemplate() {
             </div>
             <div className='template-container mb-5'>
                 <div className="template h-100 my-2">
-                    <div className="template-preview px-2">
+                    <div className="template-preview px-2 mt-2">
                         <h5 className='my-2'>Template 1</h5>
                         <Template1
                             items={items}
-                            invoiceData={invoiceData}
+                            userDetails={userDetails}
                             handleKeyPress={handleKeyPress}
                             handleRemoveItem={handleRemoveItem}
                             handleChange={handleChange}
@@ -58,11 +88,11 @@ function SelectTemplate() {
                     </button>
                 </div>
                 <div className="template h-100 my-2">
-                    <div className="template-preview px-2">
+                    <div className="template-preview px-2 mt-2">
                         <h5 className='my-2'>Template 2</h5>
                         <Template2
                             items={items}
-                            invoiceData={invoiceData}
+                            userDetails={userDetails}
                             handleKeyPress={handleKeyPress}
                             handleRemoveItem={handleRemoveItem}
                             handleChange={handleChange}
@@ -76,11 +106,11 @@ function SelectTemplate() {
                     </button>
                 </div>
                 <div className="template h-100 my-2">
-                    <div className="template-preview px-2">
+                    <div className="template-preview px-2 mt-2">
                         <h5 className='my-2'>Template 3</h5>
                         <Template3
                             items={items}
-                            invoiceData={invoiceData}
+                            userDetails={userDetails}
                             handleKeyPress={handleKeyPress}
                             handleRemoveItem={handleRemoveItem}
                             handleChange={handleChange}

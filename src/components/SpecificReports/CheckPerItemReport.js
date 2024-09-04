@@ -1,22 +1,11 @@
-import { Button } from '@mui/material';
 import React from 'react';
+import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { UserLogin } from '../../context/AuthContext';
 
 function CheckPerItemReport() {
     const navigate = useNavigate();
-
-    const invoiceData = {
-        logo: 'https://via.placeholder.com/100',
-        companyName: 'Your Company Name',
-        address: '123 Business Rd, Business City, BC 12345',
-        invoiceNumber: 'INV-1001',
-        date: '2024-08-04',
-        items: [
-            { itemNumber: 1, name: 'Laptop', description: '15 inch, 256GB SSD', quantity: 2, pricePerItem: 1200, totalPrice: 2400 },
-            { itemNumber: 2, name: 'Smartphone', description: '64GB, Black', quantity: 5, pricePerItem: 800, totalPrice: 4000 },
-            { itemNumber: 3, name: 'Tablet', description: '10 inch, 128GB', quantity: 3, pricePerItem: 500, totalPrice: 1500 },
-        ],
-    };
+    const { invoiceData } = UserLogin(); 
 
     const handleBack = () => {
         navigate("/PerItemReport");
@@ -25,6 +14,10 @@ function CheckPerItemReport() {
     const handlePrint = () => {
         window.print();
     };
+
+    if (!invoiceData) {
+        return <p>Loading...</p>; 
+    }
 
     return (
         <>

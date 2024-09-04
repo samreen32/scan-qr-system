@@ -1,7 +1,10 @@
-import { Button, TextField, Typography } from '@mui/material';
 import React from 'react';
+import { Button, TextField, Typography } from '@mui/material';
+import { UserLogin } from '../../../context/AuthContext';
 
-function Template1({ items, handleChange, handleKeyPress, handleRemoveItem, invoiceData }) {
+function Template1({ userDetails }) {
+    const { items, handleChange, handleKeyPress, handleRemoveItem, selectedDate, handleDateChange } = UserLogin();
+
     return (
         <>
             <div
@@ -9,36 +12,37 @@ function Template1({ items, handleChange, handleKeyPress, handleRemoveItem, invo
                 style={{
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center'
+                    alignItems: 'center',
                 }}
             >
                 <div className="invoice-logo" style={{ flex: 1 }}>
-                    <img src={invoiceData?.logo} alt="Company Logo" />
+                    <img src={userDetails?.company_logo} alt="Company Logo" />
                     <p className="company-info px-2 mt-3">
-                        {invoiceData?.companyName}<br />
-                        {invoiceData?.address}
+                        {userDetails?.companyName || 'Company Name'}
+                        <br />
+                        {userDetails?.address}
                     </p>
                 </div>
                 <div className="invoice-details" style={{ flex: 1, textAlign: 'right' }}>
-                    <p style={{ fontWeight: 'bold' }}>Invoice Number: {invoiceData?.invoiceNumber}</p>
-                    <p><strong>Date: </strong>
+                    <p style={{ fontWeight: 'bold' }}>Invoice Number: {userDetails?.invoiceNumber}</p>
+                    <p style={{ marginRight: '-110px' }}>
+                        <strong>Date: </strong>
                         <TextField
-                            type="date"
-                            defaultValue={invoiceData?.date}
+                            type="text"
+                            value={selectedDate}
                             variant="standard"
                             InputProps={{ disableUnderline: true }}
+                            onChange={handleDateChange}
                         />
                     </p>
                 </div>
             </div>
+
             <div
                 className="invoice-items"
-                style={{
-                    marginTop: "0px",
-                    overflowY: "auto"
-                }}
+                style={{ maxHeight: '250px', overflowY: 'auto' }}
             >
-                {items?.map((item, index) => (
+                {items.map((item, index) => (
                     <div
                         key={item.itemNumber}
                         style={{
@@ -49,61 +53,63 @@ function Template1({ items, handleChange, handleKeyPress, handleRemoveItem, invo
                             marginBottom: '10px',
                             backgroundColor: '#f9f9f9',
                             borderRadius: '5px',
-                            border: '1px solid #ddd'
+                            border: '1px solid #ddd',
                         }}
                     >
-                        <Typography variant="body1" style={{ flex: 1 }}>
+                        <Typography variant="body1" style={{ flex: 1, marginTop: '10px' }}>
                             <strong>Item #{item.itemNumber}</strong>
                         </Typography>
                         <TextField
                             variant="standard"
                             size="small"
-                            value={item.name}
                             label="Name"
+                            value={item.name}
                             InputProps={{ disableUnderline: true }}
-                            onChange={(e) => handleChange(index, 'name', e.target.value)}
                             onKeyPress={handleKeyPress}
+                            onChange={(e) => handleChange(index, 'name', e.target.value)}
                             style={{ flex: 2, marginLeft: '10px', marginRight: '10px' }}
                         />
                         <TextField
                             variant="standard"
                             size="small"
-                            value={item.description}
                             label="Description"
+                            value={item.description}
                             InputProps={{ disableUnderline: true }}
-                            onChange={(e) => handleChange(index, 'description', e.target.value)}
                             onKeyPress={handleKeyPress}
+                            onChange={(e) => handleChange(index, 'description', e.target.value)}
                             style={{ flex: 3, marginLeft: '10px', marginRight: '10px' }}
                         />
                         <TextField
                             variant="standard"
                             size="small"
                             type="number"
-                            value={item.quantity}
                             label="Quantity"
+                            value={item.quantity}
                             InputProps={{ disableUnderline: true }}
-                            onChange={(e) => handleChange(index, 'quantity', parseInt(e.target.value, 10))}
                             onKeyPress={handleKeyPress}
+                            onChange={(e) => handleChange(index, 'quantity', e.target.value)}
                             style={{ flex: 1, marginLeft: '10px', marginRight: '10px' }}
                         />
                         <TextField
                             variant="standard"
                             size="small"
                             type="number"
-                            value={item.pricePerItem}
                             label="Price Per Item"
+                            value={item.pricePerItem}
                             InputProps={{ disableUnderline: true }}
-                            onChange={(e) => handleChange(index, 'pricePerItem', parseFloat(e.target.value))}
                             onKeyPress={handleKeyPress}
+                            onChange={(e) => handleChange(index, 'pricePerItem', e.target.value)}
                             style={{ flex: 2, marginLeft: '10px', marginRight: '10px' }}
                         />
-                        <Typography variant="body1" style={{ flex: 1, marginLeft: '10px' }}><strong>${item.totalPrice.toFixed(2)}</strong></Typography>
+                        <Typography variant="body1" style={{ flex: 1, marginLeft: '10px' }}>
+                            <strong>Total: {item.totalPrice}</strong>
+                        </Typography>
                         <Button
                             variant="contained"
                             color="secondary"
+                            sx={{ textTransform: 'capitalize' }}
+                            style={{ padding: '4px', fontSize: '12px', marginLeft: '10px' }}
                             onClick={() => handleRemoveItem(index)}
-                            sx={{ textTransform: "capitalize" }}
-                            style={{ padding: "4px", fontSize: "12px", marginLeft: '10px' }}
                         >
                             Remove
                         </Button>

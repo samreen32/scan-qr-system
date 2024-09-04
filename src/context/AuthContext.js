@@ -1,23 +1,16 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [invoiceDetails, setInvoiceDetails] = useState({});
-
-  const invoiceData = {
-    logo: 'https://via.placeholder.com/100',
-    companyName: 'Your Company Name',
-    address: '123 Business Rd, Business City, BC 12345',
-    invoiceNumber: 'INV-1001',
-    date: '2024-08-04',
-  };
-
   const [items, setItems] = useState([
-    { itemNumber: 1, name: 'Laptop', description: '15 inch, 256GB SSD', quantity: 2, pricePerItem: 1200, totalPrice: 2400 },
-    { itemNumber: 2, name: 'Smartphone', description: '64GB, Black', quantity: 5, pricePerItem: 800, totalPrice: 4000 },
-    { itemNumber: 3, name: 'Tablet', description: '10 inch, 128GB', quantity: 3, pricePerItem: 500, totalPrice: 1500 },
+    { itemNumber: 1, name: '', description: '', quantity: 0, pricePerItem: 0, totalPrice: 0 },
+    { itemNumber: 2, name: '', description: '', quantity: 0, pricePerItem: 0, totalPrice: 0 },
+    { itemNumber: 3, name: '', description: '', quantity: 0, pricePerItem: 0, totalPrice: 0 },
   ]);
+  const [invoiceDetails, setInvoiceDetails] = useState({});
+  const [userDetails, setUserDetails] = useState([]);
+  const [selectedDate, setSelectedDate] = useState('');
 
   const handleChange = (index, field, value) => {
     const newItems = [...items];
@@ -49,16 +42,28 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    setSelectedDate(today);
+  }, []);
+
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value);
+  };
+
   return (
     <AuthContext.Provider
       value={{
-        invoiceDetails,
-        setInvoiceDetails,
-        invoiceData,
         items,
+        userDetails,
+        selectedDate,
+        handleDateChange,
+        handleChange,
+        setUserDetails,
+        invoiceDetails,
         handleKeyPress,
+        setInvoiceDetails,
         handleRemoveItem,
-        handleChange
       }}
     >
       {children}

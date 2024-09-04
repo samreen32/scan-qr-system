@@ -1,26 +1,34 @@
 import { Button, TextField } from '@mui/material';
 import React from 'react';
+import { UserLogin } from '../../../context/AuthContext';
 
-function Template3({ items, handleChange, handleKeyPress, handleRemoveItem, invoiceData }) {
+function Template3({ userDetails }) {
+    const { items, handleChange, handleKeyPress, handleRemoveItem, selectedDate, handleDateChange } = UserLogin();
+
     return (
         <>
-            <div className="invoice-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="invoice-header"
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            >
                 <div className="invoice-details" style={{ flex: 1, textAlign: 'left' }}>
-                    <p style={{ fontWeight: 'bold', fontSize: '16px' }}>Invoice Number: {invoiceData?.invoiceNumber}</p>
+                    <p style={{ fontWeight: 'bold', fontSize: '16px' }}>
+                        Invoice Number: {userDetails?.invoiceNumber}
+                    </p>
                     <p style={{ fontSize: '14px' }}>
                         <strong>Date: </strong>
                         <TextField
-                            type="date"
-                            defaultValue={invoiceData?.date}
+                            type="text"
+                            value={selectedDate}
                             variant="standard"
                             InputProps={{ disableUnderline: true }}
+                            onChange={handleDateChange}
                         />
                     </p>
                 </div>
                 <div className="invoice-logo" style={{ textAlign: 'right' }}>
-                    <p className="company-info px-2 mt-3">{invoiceData?.companyName}<br />
-                        {invoiceData?.address}</p>
-                    <img src={invoiceData?.logo} alt="Company Logo" />
+                    <p className="company-info px-2 mt-3">{userDetails?.companyName}<br />
+                        {userDetails?.address}</p>
+                    <img src={userDetails?.company_logo} alt="Company Logo" />
                 </div>
             </div>
             <div style={{ maxHeight: '250px', overflowY: 'auto' }}>
@@ -41,10 +49,10 @@ function Template3({ items, handleChange, handleKeyPress, handleRemoveItem, invo
                             <th style={{ padding: '10px', textAlign: 'left', fontSize: '14px' }}>Actions</th>
                         </tr>
                     </thead>
-                    <tbody style={{ overflowY: "auto", }}>
+                    <tbody style={{ overflowY: "auto" }}>
                         {items?.map((item, index) => (
                             <tr key={item.itemNumber} style={{ borderBottom: '1px solid #ddd' }}>
-                                <td style={{ fontSize: '14px' }}>{item.itemNumber}</td>
+                                <td style={{ fontSize: '14px' }}>Item #{item.itemNumber}</td>
                                 <td style={{ fontSize: '14px' }}>
                                     <TextField
                                         variant="standard"
